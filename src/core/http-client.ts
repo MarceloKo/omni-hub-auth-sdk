@@ -140,6 +140,10 @@ export class HttpClient {
 		return this.workspaceId
 	}
 
+	getBaseURL(): string {
+		return this.client.defaults.baseURL || ''
+	}
+
 	async get<T>(url: string, config?: RequestConfig): Promise<T> {
 		try {
 			const response = await this.client.get<ApiResponse<T>>(url, {

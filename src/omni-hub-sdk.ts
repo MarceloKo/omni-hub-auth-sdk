@@ -1,5 +1,5 @@
 import { HttpClient } from './core/http-client'
-import { AuthService, CustomersService } from './services'
+import { AuthService, SSOService } from './services'
 import type { HttpClientConfig } from './types/api'
 
 export interface OmniHubSDKConfig {
@@ -13,7 +13,7 @@ export class OmniHubSDK {
 	private httpClient: HttpClient
 
 	public readonly auth: AuthService
-	public readonly customers: CustomersService
+	public readonly sso: SSOService
 
 	constructor(config: OmniHubSDKConfig) {
 		const httpConfig: HttpClientConfig = {
@@ -29,7 +29,7 @@ export class OmniHubSDK {
 		}
 
 		this.auth = new AuthService(this.httpClient)
-		this.customers = new CustomersService(this.httpClient)
+		this.sso = new SSOService(this.httpClient)
 	}
 
 	setAuthErrorCallback(callback: () => void) {

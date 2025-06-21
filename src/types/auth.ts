@@ -1,24 +1,15 @@
 export interface LoginRequest {
 	email: string
 	password: string
-}
-
-export interface RegisterRequest {
-	email: string
-	password: string
-	name: string
-	workspace: {
-		name: string
-		slug: string
-	}
+	integrationType?: 'API' | 'SSO' | 'PANEL'
 }
 
 export interface RefreshTokenRequest {
 	refreshToken: string
 }
 
-export interface ValidateTokenRequest {
-	token: string
+export interface LogoutRequest {
+	refreshToken: string
 }
 
 export interface Workspace {

@@ -1,2 +1,2 @@
 export { AuthService } from './auth.service'
-export { CustomersService } from './customers.service'
+export { SSOService } from './sso.service'

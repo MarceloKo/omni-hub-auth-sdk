@@ -1,0 +1,1472 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "components": {
+        "securitySchemes": {
+            "x-workspace-id": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-workspace-id"
+            },
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            },
+            "x-api-key": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-api-key"
+            }
+        },
+        "schemas": {}
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Health check endpoint",
+                "tags": [
+                    "HEALTH CHECK"
+                ],
+                "description": "Verifica se a API está funcionando corretamente",
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/login": {
+            "post": {
+                "summary": "Autenticação de usuário",
+                "tags": [
+                    "AUTHENTICATION"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "integrationType": {
+                                        "type": "string",
+                                        "enum": [
+                                            "API",
+                                            "SSO",
+                                            "PANEL"
+                                        ],
+                                        "default": "API"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/refresh/": {
+            "post": {
+                "summary": "Renovar tokens usando refresh token",
+                "tags": [
+                    "AUTHENTICATION"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "refreshToken": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "refreshToken"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/validate/": {
+            "get": {
+                "summary": "Validar token de acesso",
+                "tags": [
+                    "AUTHENTICATION"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/logout/": {
+            "post": {
+                "summary": "Logout - revogar refresh token",
+                "tags": [
+                    "AUTHENTICATION"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "refreshToken": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "refreshToken"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/sessions/": {
+            "get": {
+                "summary": "Listar sessões do workspace",
+                "tags": [
+                    "SESSIONS"
+                ],
+                "description": "Obtém todas as sessões ativas do workspace do usuário",
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/sessions/{sessionId}": {
+            "delete": {
+                "summary": "Encerrar sessão específica",
+                "tags": [
+                    "SESSIONS"
+                ],
+                "description": "Encerra uma sessão específica do usuário pelo ID da sessão",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "sessionId",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/sessions/terminate-others/": {
+            "delete": {
+                "summary": "Encerrar todas as outras sessões do workspace",
+                "tags": [
+                    "SESSIONS"
+                ],
+                "description": "Encerra todas as sessões do workspace exceto a atual",
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/authenticate/sessions/terminate-all/": {
+            "delete": {
+                "summary": "Encerrar todas as sessões do workspace",
+                "tags": [
+                    "SESSIONS"
+                ],
+                "description": "Encerra todas as sessões ativas do workspace, incluindo a atual",
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/users/create-user/": {
+            "post": {
+                "summary": "Criação de usuário",
+                "tags": [
+                    "USERS"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "permission_group_id": {
+                                        "type": "string"
+                                    },
+                                    "attributes": {
+                                        "type": "object",
+                                        "additionalProperties": {}
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "name"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/users/": {
+            "get": {
+                "summary": "Listar usuários",
+                "tags": [
+                    "USERS"
+                ],
+                "description": "Lista todos os usuários do workspace com filtros e paginação",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "name",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "email",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "in": "query",
+                        "name": "is_locked",
+                        "required": false
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/users/{id}/status": {
+            "patch": {
+                "summary": "Atualizar status do usuário",
+                "tags": [
+                    "USERS"
+                ],
+                "description": "Bloqueia ou desbloqueia um usuário específico",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "action": {
+                                        "type": "string",
+                                        "enum": [
+                                            "block",
+                                            "unblock"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "action"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/users/{id}": {
+            "patch": {
+                "summary": "Atualizar usuário",
+                "tags": [
+                    "USERS"
+                ],
+                "description": "Atualiza os dados de um usuário específico",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "permission_group_id": {
+                                        "type": "string"
+                                    },
+                                    "attributes": {
+                                        "type": "object",
+                                        "additionalProperties": {},
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Buscar usuário por ID",
+                "tags": [
+                    "USERS"
+                ],
+                "description": "Busca um usuário específico por ID com detalhes completos",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/users/{id}/permission-group": {
+            "patch": {
+                "summary": "Gerenciar grupo de permissões do usuário",
+                "tags": [
+                    "USERS"
+                ],
+                "description": "Atribui ou remove grupo de permissões de um usuário",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "permission_group_id": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "action": {
+                                        "type": "string",
+                                        "enum": [
+                                            "assign",
+                                            "remove"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "permission_group_id",
+                                    "action"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/permissions-group/": {
+            "post": {
+                "summary": "Criar grupo de permissões",
+                "tags": [
+                    "PERMISSIONS GROUP"
+                ],
+                "description": "Cria um novo grupo de permissões com permissões e usuários opcionais",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "permissions_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "minItems": 1
+                                    },
+                                    "users_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "permissions_ids"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listar grupos de permissões",
+                "tags": [
+                    "PERMISSIONS GROUP"
+                ],
+                "description": "Lista grupos de permissões com filtros e paginação",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "name",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "description",
+                        "required": false
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/permissions-group/{id}": {
+            "put": {
+                "summary": "Atualizar grupo de permissões",
+                "tags": [
+                    "PERMISSIONS GROUP"
+                ],
+                "description": "Atualiza um grupo de permissões existente",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "permissions_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "minItems": 1
+                                    },
+                                    "users_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar grupo de permissões",
+                "tags": [
+                    "PERMISSIONS GROUP"
+                ],
+                "description": "Remove um grupo de permissões existente",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/permissions/": {
+            "post": {
+                "summary": "Criar permissão",
+                "tags": [
+                    "PERMISSIONS"
+                ],
+                "description": "Cria uma nova permissão no workspace",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "name"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listar permissões",
+                "tags": [
+                    "PERMISSIONS"
+                ],
+                "description": "Lista permissões com filtros e paginação",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "name",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "description",
+                        "required": false
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/permissions/report": {
+            "get": {
+                "summary": "Relatório básico de permissões",
+                "tags": [
+                    "PERMISSIONS"
+                ],
+                "description": "Retorna estatísticas básicas sobre permissões: total criadas, em uso e não utilizadas",
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/permissions/{id}": {
+            "put": {
+                "summary": "Atualizar permissão",
+                "tags": [
+                    "PERMISSIONS"
+                ],
+                "description": "Atualiza uma permissão existente",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar permissão",
+                "tags": [
+                    "PERMISSIONS"
+                ],
+                "description": "Remove uma permissão existente após validar dependências",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/user-permissions/assign": {
+            "post": {
+                "summary": "Atribuir permissão a usuário",
+                "tags": [
+                    "USER PERMISSIONS"
+                ],
+                "description": "Atribui uma permissão específica a um usuário no workspace",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "permission_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                },
+                                "required": [
+                                    "user_id",
+                                    "permission_id"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/user-permissions/remove": {
+            "post": {
+                "summary": "Remover permissão de usuário",
+                "tags": [
+                    "USER PERMISSIONS"
+                ],
+                "description": "Remove uma permissão específica de um usuário no workspace",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "permission_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                },
+                                "required": [
+                                    "user_id",
+                                    "permission_id"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/user-permissions/{user_id}": {
+            "get": {
+                "summary": "Listar permissões do usuário",
+                "tags": [
+                    "USER PERMISSIONS"
+                ],
+                "description": "Lista todas as permissões atribuídas a um usuário no workspace",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/user-permissions/{user_id}/available": {
+            "get": {
+                "summary": "Listar permissões disponíveis",
+                "tags": [
+                    "USER PERMISSIONS"
+                ],
+                "description": "Lista permissões que podem ser atribuídas ao usuário no workspace",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/user-permissions/bulk-assign": {
+            "post": {
+                "summary": "Atribuir múltiplas permissões",
+                "tags": [
+                    "USER PERMISSIONS"
+                ],
+                "description": "Atribui múltiplas permissões a um usuário no workspace",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "permission_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "minItems": 1
+                                    }
+                                },
+                                "required": [
+                                    "user_id",
+                                    "permission_ids"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/user-permissions/bulk-remove": {
+            "post": {
+                "summary": "Remover múltiplas permissões",
+                "tags": [
+                    "USER PERMISSIONS"
+                ],
+                "description": "Remove múltiplas permissões de um usuário no workspace",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "permission_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "minItems": 1
+                                    }
+                                },
+                                "required": [
+                                    "user_id",
+                                    "permission_ids"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "x-workspace-id": [],
+                        "x-api-key": [],
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/sso/auth": {
+            "get": {
+                "summary": "OAuth2 Authorization Endpoint",
+                "tags": [
+                    "SSO"
+                ],
+                "description": "Endpoint para iniciar o fluxo de autenticação SSO",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "in": "query",
+                        "name": "client_id",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "format": "uri"
+                        },
+                        "in": "query",
+                        "name": "redirect_uri",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "code"
+                            ],
+                            "default": "code"
+                        },
+                        "in": "query",
+                        "name": "response_type",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "scope",
+                        "required": false
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "state",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/sso/token": {
+            "post": {
+                "summary": "OAuth2 Token Endpoint",
+                "tags": [
+                    "SSO"
+                ],
+                "description": "Endpoint para trocar authorization code por access token",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "grant_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "authorization_code"
+                                        ]
+                                    },
+                                    "client_id": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "client_secret": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "redirect_uri": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    }
+                                },
+                                "required": [
+                                    "grant_type",
+                                    "client_id",
+                                    "client_secret",
+                                    "code",
+                                    "redirect_uri"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/sso/authenticate": {
+            "post": {
+                "summary": "Autenticar usuário no SSO",
+                "tags": [
+                    "SSO"
+                ],
+                "description": "Endpoint para autenticação de usuário na página de login SSO",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "authorization_code": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "authorization_code"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/v1/sso/integration/{clientId}": {
+            "get": {
+                "summary": "Obter dados da integração SSO",
+                "tags": [
+                    "SSO"
+                ],
+                "description": "Retorna informações da integração SSO para a página de login",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "in": "path",
+                        "name": "clientId",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        }
+    },
+    "servers": []
+}

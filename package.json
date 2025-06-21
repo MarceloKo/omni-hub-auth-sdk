@@ -1,6 +1,6 @@
 {
   "name": "@omni-hub-sdk/auth-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "SDK para integração com o serviço de autenticação da plataforma OmniHub",
   "main": "dist/index.js",
@@ -49,10 +49,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/omni-hub/omni-hub-auth-sdk"
+    "url": "git+https://github.com/MarceloKo/omni-hub-auth-sdk.git"
   },
-  "homepage": "https://github.com/omni-hub/omni-hub-auth-sdk#readme",
+  "homepage": "https://github.com/MarceloKo/omni-hub-auth-sdk#readme",
   "bugs": {
-    "url": "https://github.com/omni-hub/omni-hub-auth-sdk/issues"
+    "url": "https://github.com/MarceloKo/omni-hub-auth-sdk/issues"
   }
 }

@@ -98,5 +98,3 @@ O projeto utiliza **Biome** para formatação e linting:
 - **Imports**: Organizados automaticamente
 
 ---
-
-**Documentação da API Auth completa:** [https://docs.omnihub.com.br/auth-api](https://docs.omnihub.com.br/auth-api)

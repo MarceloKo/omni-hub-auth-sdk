@@ -1,5 +1,5 @@
 import { HttpClient } from './core/http-client'
-import { AuthService, SSOService } from './services'
+import { AuthService, PermissionGroupsService, PermissionsService, SSOService, SessionsService, UserPermissionsService, UsersService } from './services'
 import type { HttpClientConfig } from './types/api'
 
 export interface OmniHubSDKConfig {
@@ -14,6 +14,11 @@ export class OmniHubSDK {
 
 	public readonly auth: AuthService
 	public readonly sso: SSOService
+	public readonly users: UsersService
+	public readonly sessions: SessionsService
+	public readonly permissions: PermissionsService
+	public readonly permissionGroups: PermissionGroupsService
+	public readonly userPermissions: UserPermissionsService
 
 	constructor(config: OmniHubSDKConfig) {
 		const httpConfig: HttpClientConfig = {
@@ -30,6 +35,11 @@ export class OmniHubSDK {
 
 		this.auth = new AuthService(this.httpClient)
 		this.sso = new SSOService(this.httpClient)
+		this.users = new UsersService(this.httpClient)
+		this.sessions = new SessionsService(this.httpClient)
+		this.permissions = new PermissionsService(this.httpClient)
+		this.permissionGroups = new PermissionGroupsService(this.httpClient)
+		this.userPermissions = new UserPermissionsService(this.httpClient)
 	}
 
 	setAuthErrorCallback(callback: () => void) {

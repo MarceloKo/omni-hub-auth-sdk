@@ -9,7 +9,7 @@ export class SSOService {
 	 */
 	getAuthorizationUrl(params: SSOAuthParams): string {
 		const baseUrl = this.httpClient.getBaseURL()
-		const url = new URL('/v1/sso/auth', baseUrl)
+		const url = new URL('/v1/sso/authorization-endpoint', baseUrl)
 
 		url.searchParams.append('client_id', params.client_id)
 		url.searchParams.append('redirect_uri', params.redirect_uri)

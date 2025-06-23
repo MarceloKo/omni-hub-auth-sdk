@@ -1,2 +1,7 @@
 export { AuthService } from './auth.service'
 export { SSOService } from './sso.service'
+export { UsersService } from './users.service'
+export { SessionsService } from './sessions.service'
+export { PermissionsService } from './permissions.service'
+export { PermissionGroupsService } from './permission-groups.service'
+export { UserPermissionsService } from './user-permissions.service'

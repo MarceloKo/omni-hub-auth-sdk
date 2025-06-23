@@ -1280,7 +1280,7 @@
                 }
             }
         },
-        "/v1/sso/auth": {
+        "/v1/sso/authorization-endpoint": {
             "get": {
                 "summary": "OAuth2 Authorization Endpoint",
                 "tags": [

@@ -1,6 +1,6 @@
 {
   "name": "@omni-hub-sdk/auth-sdk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "SDK para integração com o serviço de autenticação da plataforma OmniHub",
   "main": "dist/index.js",

@@ -12,51 +12,36 @@ export interface UpdatePermissionGroupRequest {
 	users_ids?: string[]
 }
 
-export interface GetPermissionGroupsParams extends Record<string, unknown> {
+export interface PermissionGroup {
+	id: string
+	name: string
+	description: string | null
+	workspace_id: string
+	created_at: string
+	updated_at: string
+	permissions: Permission[]
+	users_count: number
+}
+
+export interface ListPermissionGroupsQueryParams extends Record<string, string | number | boolean | undefined> {
 	page?: number
 	limit?: number
 	name?: string
 	description?: string
 }
 
-export interface PermissionGroupEntity {
-	id: string
-	name: string
-	description?: string
-	workspace_id: string
-	created_at: string
-	updated_at: string
-	permissions?: PermissionGroupPermission[]
-	users?: PermissionGroupUser[]
-}
-
-export interface PermissionGroupPermission {
-	id: string
-	name: string
-	description?: string
-	workspace_id: string
-	created_at: string
-	updated_at: string
-}
-
-export interface PermissionGroupUser {
-	id: string
-	email: string
-	name: string
-	is_locked: boolean
-}
-
-export interface PermissionGroupsListResponse {
-	permission_groups: PermissionGroupEntity[]
+export interface ListPermissionGroupsResponse {
+	response: PermissionGroup[]
 	pagination: {
 		page: number
 		limit: number
 		total: number
-		totalPages: number
+		total_pages: number
 	}
 }
 
-export interface PermissionGroupResponse {
-	permission_group: PermissionGroupEntity
-	message?: string
+export interface Permission {
+	id: string
+	name: string
+	description: string | null
 }

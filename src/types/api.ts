@@ -41,6 +41,6 @@ export interface AuthTokens {
 
 export interface RequestConfig {
 	headers?: Record<string, string>
-	params?: Record<string, unknown>
+	params?: Record<string, unknown> | Record<string, string | number | boolean | undefined>
 	timeout?: number
 }

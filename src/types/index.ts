@@ -1,39 +1,75 @@
+// API Types
 export * from './api'
-export * from './auth'
-export * from './sso'
-export * from './sessions'
-export * from './user-permissions'
 
-// Export with aliases to avoid conflicts
+// Auth Types
 export type {
-	UserEntity,
-	CreateUserRequest,
-	UpdateUserRequest,
-	UpdateUserStatusRequest,
-	ManageUserPermissionGroupRequest,
-	GetUsersParams,
-	UsersListResponse,
-	CreateUserResponse,
-	UserResponse,
+    LoginRequest,
+    RefreshTokenRequest,
+    LogoutRequest,
+    Workspace,
+    User as AuthUser,
+    Permission as AuthPermission,
+    LoginResponse,
+    RefreshTokenResponse,
+    ValidateTokenResponse,
+} from './auth'
+
+// Sessions Types
+export * from './sessions'
+
+// Users Types
+export type {
+    CreateUserRequest,
+    UpdateUserRequest,
+    UpdateUserStatusRequest,
+    ManageUserPermissionGroupRequest,
+    User,
+    UserDetail,
+    CreateUserResponse,
+    ListUsersQueryParams,
+    ListUsersResponse,
+    Permission as UserPermission,
 } from './users'
 
+// Permissions Types
 export type {
-	PermissionEntity as PermissionData,
-	CreatePermissionRequest,
-	UpdatePermissionRequest,
-	GetPermissionsParams,
-	PermissionsListResponse,
-	PermissionResponse,
-	PermissionsReportResponse,
+    CreatePermissionRequest,
+    UpdatePermissionRequest,
+    Permission as PermissionsPermission,
+    ListPermissionsQueryParams,
+    ListPermissionsResponse,
+    PermissionsReport,
 } from './permissions'
 
+// Permission Groups Types
 export type {
-	PermissionGroupEntity,
-	PermissionGroupPermission,
-	PermissionGroupUser,
-	CreatePermissionGroupRequest,
-	UpdatePermissionGroupRequest,
-	GetPermissionGroupsParams,
-	PermissionGroupsListResponse,
-	PermissionGroupResponse,
+    CreatePermissionGroupRequest,
+    UpdatePermissionGroupRequest,
+    PermissionGroup,
+    ListPermissionGroupsQueryParams,
+    ListPermissionGroupsResponse,
+    Permission as PermissionGroupsPermission,
 } from './permission-groups'
+
+// User Permissions Types
+export type {
+    AssignPermissionRequest,
+    RemovePermissionRequest,
+    BulkAssignPermissionsRequest,
+    BulkRemovePermissionsRequest,
+    UserPermission as UserPermissionData,
+    ListUserPermissionsQueryParams,
+    ListUserPermissionsResponse,
+} from './user-permissions'
+
+// SSO Types
+export type {
+    SSOAuthorizationParams,
+    SSOTokenRequest,
+    SSOTokenResponse,
+    SSOAuthenticateRequest,
+    SSOAuthenticateResponse,
+    SSOIntegration,
+} from './sso'
+
+

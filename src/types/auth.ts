@@ -22,27 +22,27 @@ export interface Workspace {
 export interface User {
 	id: string
 	email: string
-	name: string
+	name: string | null
 	is_locked: boolean
-	email_verified: boolean
+	email_verified?: boolean
 	last_login_at: string | null
-	created_at: string
-	user_type: string[]
+	created_at?: string
+	user_type?: string[]
 	permissions?: Permission[]
 	permission_group?: {
 		id: string
 		name: string
 	} | null
-	attributes?: Record<string, unknown[]>
+	attributes?: Record<string, unknown>
 }
 
 export interface Permission {
 	id: string
 	name: string
-	description: string
-	workspace_id: string
-	created_at: string
-	updated_at: string
+	description: string | null
+	workspace_id?: string
+	created_at?: string
+	updated_at?: string
 }
 
 export interface LoginResponse {
@@ -52,7 +52,7 @@ export interface LoginResponse {
 	user: {
 		id: string
 		email: string
-		name: string
+		name: string | null
 		is_locked: boolean
 	}
 }
@@ -64,10 +64,9 @@ export interface RefreshTokenResponse {
 
 export interface ValidateTokenResponse {
 	valid: boolean
-	userId: string
 	user: {
 		id: string
 		email: string
-		name: string
+		name: string | null
 	} | null
 }

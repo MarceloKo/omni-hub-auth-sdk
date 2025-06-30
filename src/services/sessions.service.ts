@@ -1,22 +1,22 @@
 import type { HttpClient } from '../core/http-client'
-import type { SessionsListResponse, TerminateSessionResponse } from '../types/sessions'
+import type { Session, TerminateSessionsResponse } from '../types/sessions'
 
 export class SessionsService {
-	constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient) { }
 
-	async getSessions(): Promise<SessionsListResponse> {
-		return this.httpClient.get<SessionsListResponse>('/v1/authenticate/sessions/')
+	async getSessions(): Promise<Session[]> {
+		return this.httpClient.get<Session[]>('/v1/authenticate/sessions/')
 	}
 
-	async terminateSession(sessionId: string): Promise<TerminateSessionResponse> {
-		return this.httpClient.delete<TerminateSessionResponse>(`/v1/authenticate/sessions/${sessionId}`)
+	async terminateSession(sessionId: string): Promise<void> {
+		return this.httpClient.delete<void>(`/v1/authenticate/sessions/${sessionId}`)
 	}
 
-	async terminateOtherSessions(): Promise<TerminateSessionResponse> {
-		return this.httpClient.delete<TerminateSessionResponse>('/v1/authenticate/sessions/terminate-others/')
+	async terminateOtherSessions(): Promise<TerminateSessionsResponse> {
+		return this.httpClient.delete<TerminateSessionsResponse>('/v1/authenticate/sessions/terminate-others/')
 	}
 
-	async terminateAllSessions(): Promise<TerminateSessionResponse> {
-		return this.httpClient.delete<TerminateSessionResponse>('/v1/authenticate/sessions/terminate-all/')
+	async terminateAllSessions(): Promise<TerminateSessionsResponse> {
+		return this.httpClient.delete<TerminateSessionsResponse>('/v1/authenticate/sessions/terminate-all/')
 	}
 }

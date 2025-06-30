@@ -1,7 +1,7 @@
-export interface SSOAuthParams {
+export interface SSOAuthorizationParams {
 	client_id: string
 	redirect_uri: string
-	response_type?: 'code'
+	response_type?: string
 	scope?: string
 	state?: string
 }
@@ -18,8 +18,7 @@ export interface SSOTokenResponse {
 	access_token: string
 	token_type: string
 	expires_in: number
-	refresh_token?: string
-	scope?: string
+	refresh_token: string
 }
 
 export interface SSOAuthenticateRequest {
@@ -28,10 +27,16 @@ export interface SSOAuthenticateRequest {
 	authorization_code: string
 }
 
-export interface SSOIntegrationInfo {
-	client_id: string
+export interface SSOAuthenticateResponse {
+	redirect_url: string
+	success: boolean
+}
+
+export interface SSOIntegration {
+	id: string
 	name: string
-	description?: string
-	logo_url?: string
+	client_id: string
+	login_theme: string | null
 	redirect_uris: string[]
+	allowed_cors_origins: string[]
 }

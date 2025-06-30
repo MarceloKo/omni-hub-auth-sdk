@@ -1,39 +1,39 @@
 import type { HttpClient } from '../core/http-client'
 import type {
 	CreateUserRequest,
-	CreateUserResponse,
-	GetUsersParams,
-	ManageUserPermissionGroupRequest,
 	UpdateUserRequest,
 	UpdateUserStatusRequest,
-	UserResponse,
-	UsersListResponse,
+	ManageUserPermissionGroupRequest,
+	CreateUserResponse,
+	ListUsersQueryParams,
+	ListUsersResponse,
+	UserDetail,
 } from '../types/users'
 
 export class UsersService {
-	constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient) { }
 
 	async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
 		return this.httpClient.post<CreateUserResponse>('/v1/users/create-user/', data)
 	}
 
-	async getUsers(params?: GetUsersParams): Promise<UsersListResponse> {
-		return this.httpClient.get<UsersListResponse>('/v1/users/', { params })
+	async getUsers(params?: ListUsersQueryParams): Promise<ListUsersResponse> {
+		return this.httpClient.get<ListUsersResponse>('/v1/users/', { params })
 	}
 
-	async getUserById(id: string): Promise<UserResponse> {
-		return this.httpClient.get<UserResponse>(`/v1/users/${id}`)
+	async getUserById(id: string): Promise<UserDetail> {
+		return this.httpClient.get<UserDetail>(`/v1/users/${id}`)
 	}
 
-	async updateUser(id: string, data: UpdateUserRequest): Promise<UserResponse> {
-		return this.httpClient.patch<UserResponse>(`/v1/users/${id}`, data)
+	async updateUser(id: string, data: UpdateUserRequest): Promise<void> {
+		return this.httpClient.patch<void>(`/v1/users/${id}`, data)
 	}
 
-	async updateUserStatus(id: string, data: UpdateUserStatusRequest): Promise<{ message: string }> {
-		return this.httpClient.patch<{ message: string }>(`/v1/users/${id}/status`, data)
+	async updateUserStatus(id: string, data: UpdateUserStatusRequest): Promise<void> {
+		return this.httpClient.patch<void>(`/v1/users/${id}/status`, data)
 	}
 
-	async manageUserPermissionGroup(id: string, data: ManageUserPermissionGroupRequest): Promise<{ message: string }> {
-		return this.httpClient.patch<{ message: string }>(`/v1/users/${id}/permission-group`, data)
+	async manageUserPermissionGroup(id: string, data: ManageUserPermissionGroupRequest): Promise<void> {
+		return this.httpClient.patch<void>(`/v1/users/${id}/permission-group`, data)
 	}
 }

@@ -1,8 +1,15 @@
 import type { HttpClient } from '../core/http-client'
-import type { LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse, ValidateTokenResponse } from '../types/auth'
+import type {
+	LoginRequest,
+	LoginResponse,
+	RefreshTokenRequest,
+	RefreshTokenResponse,
+	ValidateTokenResponse,
+	LogoutRequest
+} from '../types/auth'
 
 export class AuthService {
-	constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient) { }
 
 	async login(data: LoginRequest): Promise<LoginResponse> {
 		return this.httpClient.post<LoginResponse>('/v1/authenticate/login', data)
@@ -16,8 +23,8 @@ export class AuthService {
 		return this.httpClient.get<ValidateTokenResponse>('/v1/authenticate/validate/')
 	}
 
-	async logout(refreshToken: string): Promise<{ message: string }> {
-		return this.httpClient.post<{ message: string }>('/v1/authenticate/logout/', { refreshToken })
+	async logout(data: LogoutRequest): Promise<void> {
+		return this.httpClient.post<void>('/v1/authenticate/logout/', data)
 	}
 
 	clearAuth() {

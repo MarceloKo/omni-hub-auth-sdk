@@ -21,7 +21,49 @@ export interface ManageUserPermissionGroupRequest {
 	action: 'assign' | 'remove'
 }
 
-export interface GetUsersParams extends Record<string, unknown> {
+export interface User {
+	id: string
+	email: string
+	name: string | null
+	is_locked: boolean
+	email_verified: boolean
+	last_login_at: string | null
+	created_at: string
+	user_type: string[]
+	permissions: Permission[]
+	permission_group: {
+		id: string
+		name: string
+	} | null
+	attributes: Record<string, unknown>
+}
+
+export interface UserDetail {
+	id: string
+	email: string
+	name: string | null
+	is_locked: boolean
+	email_verified: boolean
+	last_login_at: string | null
+	created_at: string
+	user_type: string[]
+	permissions: Permission[]
+	attributes: Record<string, unknown>
+}
+
+export interface CreateUserResponse {
+	id: string
+	email: string
+	name: string | null
+	email_verified: boolean
+	last_login_at: string | null
+	locked_at: string | null
+	is_locked: boolean
+	created_at: string
+	updated_at: string
+}
+
+export interface ListUsersQueryParams extends Record<string, string | number | boolean | undefined> {
 	page?: number
 	limit?: number
 	name?: string
@@ -29,49 +71,18 @@ export interface GetUsersParams extends Record<string, unknown> {
 	is_locked?: boolean
 }
 
-export interface UserEntity {
-	id: string
-	email: string
-	name: string
-	is_locked: boolean
-	email_verified: boolean
-	last_login_at: string | null
-	created_at: string
-	updated_at: string
-	user_type: string[]
-	permissions?: PermissionEntity[]
-	permission_group?: {
-		id: string
-		name: string
-		description?: string
-	} | null
-	attributes?: Record<string, unknown>
-}
-
-export interface PermissionEntity {
-	id: string
-	name: string
-	description?: string
-	workspace_id: string
-	created_at: string
-	updated_at: string
-}
-
-export interface UsersListResponse {
-	users: UserEntity[]
+export interface ListUsersResponse {
+	users: User[]
 	pagination: {
 		page: number
 		limit: number
 		total: number
-		totalPages: number
+		total_pages: number
 	}
 }
 
-export interface CreateUserResponse {
-	user: UserEntity
-	message: string
-}
-
-export interface UserResponse {
-	user: UserEntity
+export interface Permission {
+	id: string
+	name: string
+	description: string | null
 }

@@ -1,13 +1,24 @@
 export interface Session {
 	id: string
-	user_id: string
-	workspace_id: string
-	user_agent?: string
-	ip_address?: string
+	token: string
 	created_at: string
-	last_activity_at: string
 	expires_at: string
-	is_current?: boolean
+	updated_at: string
+	is_current: boolean
+	user: {
+		id: string
+		email: string
+		name: string | null
+		is_locked: boolean
+		last_login_at: string | null
+		created_at: string
+		user_type: string[]
+	}
+	integration_type: string
+	integration: {
+		type: string
+		name: string
+	} | null
 }
 
 export interface SessionsListResponse {
@@ -15,6 +26,6 @@ export interface SessionsListResponse {
 	message: string
 }
 
-export interface TerminateSessionResponse {
-	message: string
+export interface TerminateSessionsResponse {
+	sessions_terminated: number
 }

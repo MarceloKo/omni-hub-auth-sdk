@@ -1,22 +1,28 @@
 import type { HttpClient } from '../core/http-client'
-import type { CreatePermissionGroupRequest, GetPermissionGroupsParams, PermissionGroupResponse, PermissionGroupsListResponse, UpdatePermissionGroupRequest } from '../types/permission-groups'
+import type {
+	CreatePermissionGroupRequest,
+	UpdatePermissionGroupRequest,
+	PermissionGroup,
+	ListPermissionGroupsQueryParams,
+	ListPermissionGroupsResponse,
+} from '../types/permission-groups'
 
 export class PermissionGroupsService {
-	constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient) { }
 
-	async createPermissionGroup(data: CreatePermissionGroupRequest): Promise<PermissionGroupResponse> {
-		return this.httpClient.post<PermissionGroupResponse>('/v1/permissions-group/', data)
+	async createPermissionGroup(data: CreatePermissionGroupRequest): Promise<PermissionGroup> {
+		return this.httpClient.post<PermissionGroup>('/v1/permissions-group/', data)
 	}
 
-	async getPermissionGroups(params?: GetPermissionGroupsParams): Promise<PermissionGroupsListResponse> {
-		return this.httpClient.get<PermissionGroupsListResponse>('/v1/permissions-group/', { params })
+	async getPermissionGroups(params?: ListPermissionGroupsQueryParams): Promise<ListPermissionGroupsResponse> {
+		return this.httpClient.get<ListPermissionGroupsResponse>('/v1/permissions-group/', { params })
 	}
 
-	async updatePermissionGroup(id: string, data: UpdatePermissionGroupRequest): Promise<PermissionGroupResponse> {
-		return this.httpClient.put<PermissionGroupResponse>(`/v1/permissions-group/${id}`, data)
+	async updatePermissionGroup(id: string, data: UpdatePermissionGroupRequest): Promise<PermissionGroup> {
+		return this.httpClient.put<PermissionGroup>(`/v1/permissions-group/${id}`, data)
 	}
 
-	async deletePermissionGroup(id: string): Promise<{ message: string }> {
-		return this.httpClient.delete<{ message: string }>(`/v1/permissions-group/${id}`)
+	async deletePermissionGroup(id: string): Promise<void> {
+		return this.httpClient.delete<void>(`/v1/permissions-group/${id}`)
 	}
 }

@@ -28,13 +28,13 @@ function execCommand(command, options = {}) {
 
 // Função para ler o package.json
 function readPackageJson() {
-	const packagePath = join(__dirname, '..', 'package.json')
+	const packagePath = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'package.json')
 	return JSON.parse(readFileSync(packagePath, 'utf8'))
 }
 
 // Função para escrever o package.json
 function writePackageJson(packageJson) {
-	const packagePath = join(__dirname, '..', 'package.json')
+	const packagePath = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'package.json')
 	writeFileSync(packagePath, JSON.stringify(packageJson, null, 2) + '\n')
 }
 

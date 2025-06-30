@@ -107,7 +107,6 @@ async function main() {
 	console.log('\n🔍 Fazendo verificações prévias...')
 	checkUncommittedChanges()
 	checkBranch()
-	checkNpmLogin()
 	
 	// Obter tipo de versão
 	const versionType = getVersionType()

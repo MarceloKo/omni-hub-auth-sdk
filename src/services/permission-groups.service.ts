@@ -1,14 +1,8 @@
 import type { HttpClient } from '../core/http-client'
-import type {
-	CreatePermissionGroupRequest,
-	UpdatePermissionGroupRequest,
-	PermissionGroup,
-	ListPermissionGroupsQueryParams,
-	ListPermissionGroupsResponse,
-} from '../types/permission-groups'
+import type { CreatePermissionGroupRequest, ListPermissionGroupsQueryParams, ListPermissionGroupsResponse, PermissionGroup, UpdatePermissionGroupRequest } from '../types/permission-groups'
 
 export class PermissionGroupsService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async createPermissionGroup(data: CreatePermissionGroupRequest): Promise<PermissionGroup> {
 		return this.httpClient.post<PermissionGroup>('/v1/permissions-group/', data)

@@ -1,16 +1,15 @@
 import type { HttpClient } from '../core/http-client'
 import type {
 	AssignPermissionRequest,
-	RemovePermissionRequest,
 	BulkAssignPermissionsRequest,
 	BulkRemovePermissionsRequest,
-	UserPermission,
 	ListUserPermissionsQueryParams,
 	ListUserPermissionsResponse,
+	RemovePermissionRequest,
 } from '../types/user-permissions'
 
 export class UserPermissionsService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async assignPermission(data: AssignPermissionRequest): Promise<void> {
 		return this.httpClient.post<void>('/v1/user-permissions/assign', data)

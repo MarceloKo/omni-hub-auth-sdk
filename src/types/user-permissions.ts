@@ -39,5 +39,3 @@ export interface ListUserPermissionsResponse {
 		total_pages: number
 	}
 }
-
-

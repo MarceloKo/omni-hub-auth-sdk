@@ -1,17 +1,17 @@
 import type { HttpClient } from '../core/http-client'
 import type {
 	CreateUserRequest,
-	UpdateUserRequest,
-	UpdateUserStatusRequest,
-	ManageUserPermissionGroupRequest,
 	CreateUserResponse,
 	ListUsersQueryParams,
 	ListUsersResponse,
+	ManageUserPermissionGroupRequest,
+	UpdateUserRequest,
+	UpdateUserStatusRequest,
 	UserDetail,
 } from '../types/users'
 
 export class UsersService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
 		return this.httpClient.post<CreateUserResponse>('/v1/users/create-user/', data)

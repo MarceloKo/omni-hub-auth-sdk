@@ -1,23 +1,16 @@
 import type { HttpClient } from '../core/http-client'
-import type {
-	SSOAuthorizationParams,
-	SSOTokenRequest,
-	SSOTokenResponse,
-	SSOAuthenticateRequest,
-	SSOAuthenticateResponse,
-	SSOIntegration,
-} from '../types/sso'
+import type { SSOAuthenticateRequest, SSOAuthenticateResponse, SSOAuthorizationParams, SSOIntegration, SSOTokenRequest, SSOTokenResponse } from '../types/sso'
 
 export class SSOService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async getAuthorizationEndpoint(params: SSOAuthorizationParams): Promise<string> {
 		const queryParams = new URLSearchParams()
-		Object.entries(params).forEach(([key, value]) => {
+		for (const [key, value] of Object.entries(params)) {
 			if (value !== undefined) {
 				queryParams.append(key, value)
 			}
-		})
+		}
 		return `${this.httpClient.getBaseURL()}/v1/sso/authorization-endpoint?${queryParams.toString()}`
 	}
 

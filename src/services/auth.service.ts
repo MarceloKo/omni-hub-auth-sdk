@@ -1,15 +1,8 @@
 import type { HttpClient } from '../core/http-client'
-import type {
-	LoginRequest,
-	LoginResponse,
-	RefreshTokenRequest,
-	RefreshTokenResponse,
-	ValidateTokenResponse,
-	LogoutRequest
-} from '../types/auth'
+import type { LoginRequest, LoginResponse, LogoutRequest, RefreshTokenRequest, RefreshTokenResponse, ValidateTokenResponse } from '../types/auth'
 
 export class AuthService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async login(data: LoginRequest): Promise<LoginResponse> {
 		return this.httpClient.post<LoginResponse>('/v1/authenticate/login', data)

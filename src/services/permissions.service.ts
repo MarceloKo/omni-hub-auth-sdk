@@ -1,15 +1,8 @@
 import type { HttpClient } from '../core/http-client'
-import type {
-	CreatePermissionRequest,
-	UpdatePermissionRequest,
-	Permission,
-	ListPermissionsQueryParams,
-	ListPermissionsResponse,
-	PermissionsReport,
-} from '../types/permissions'
+import type { CreatePermissionRequest, ListPermissionsQueryParams, ListPermissionsResponse, Permission, PermissionsReport, UpdatePermissionRequest } from '../types/permissions'
 
 export class PermissionsService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async createPermission(data: CreatePermissionRequest): Promise<Permission> {
 		return this.httpClient.post<Permission>('/v1/permissions/', data)

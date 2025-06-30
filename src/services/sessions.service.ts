@@ -2,7 +2,7 @@ import type { HttpClient } from '../core/http-client'
 import type { Session, TerminateSessionsResponse } from '../types/sessions'
 
 export class SessionsService {
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	async getSessions(): Promise<Session[]> {
 		return this.httpClient.get<Session[]>('/v1/authenticate/sessions/')

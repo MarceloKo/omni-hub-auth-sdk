@@ -210,38 +210,6 @@ const tokens = await sdk.sso.getToken({
 const integration = await sdk.sso.getIntegration("client-id");
 ```
 
-## 🛠️ Desenvolvimento
-
-### Comandos Disponíveis
-
-```bash
-# Instalar dependências
-yarn install
-
-# Desenvolvimento
-yarn dev              # Build em modo watch
-
-# Qualidade de código
-yarn lint             # Formatar e corrigir com Biome
-yarn lint:check       # Verificar apenas (sem corrigir)
-yarn type-check       # Verificação de tipos TypeScript
-
-# Build e testes
-yarn build            # Build para produção
-yarn test             # Executar testes
-yarn test:watch       # Testes em modo watch
-```
-
-### Padrões de Código
-
-O projeto utiliza **Biome** para formatação e linting:
-
-- **Indentação**: Tabs
-- **Aspas**: Simples (`'`)
-- **Ponto e vírgula**: Apenas quando necessário
-- **Largura de linha**: 200 caracteres
-- **Imports**: Organizados automaticamente
-
 ## 📚 API Reference
 
 ### Configuração
